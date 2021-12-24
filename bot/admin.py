@@ -19,6 +19,12 @@ class Admin(commands.Cog):
         await channel.send('**A message by <@{}> has been moved from <#{}>:**\n\n{}'
                            .format(msg.author.id, msg.channel.id, msg.content))
 
+    @commands.command(name='msg', hidden=True)
+    @has_permissions(administrator=True)
+    async def move_message(self, ctx, channel: discord.TextChannel, *, message):
+        await ctx.message.delete()
+        await channel.send(message)
+
     @commands.command(name='rm-point', hidden=True)
     @has_permissions(administrator=True)
     async def remove_acknowledgment(self, ctx, user: discord.User):
