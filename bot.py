@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import utils
 import os
 
 load_dotenv()
@@ -19,6 +20,7 @@ async def on_message(message):
     if not message.guild:  # Disable DM commands.
         return
 
+    await utils.antispam_protection(bot, message)
     await bot.process_commands(message)
 
 
