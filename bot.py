@@ -21,6 +21,9 @@ async def on_message(message):
         return
 
     await utils.antispam_protection(bot, message)
+    if message.channel.name == 'progress':
+        await utils.detect_66th_day(bot, message)
+
     await bot.process_commands(message)
 
 

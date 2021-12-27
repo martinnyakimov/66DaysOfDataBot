@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import utils
-import re
 
 
 class Progress(commands.Cog):
@@ -24,10 +23,9 @@ class Progress(commands.Cog):
         found = False
         for msg in reversed(messages):
             if msg.author.id == author_id:
-                last_day_msg = re.findall(r'(?i)\bday\b[\s]+[\d-]+|day[\d-]+', msg.content)
-                if last_day_msg:
-                    await ctx.send('The last message is marked as day **{}**.'
-                                   .format(last_day_msg[-1].lower().replace('day', '').strip()))
+                last_day = utils.detect_progress_day(msg.content)
+                if last_day:
+                    await ctx.send('The last message is marked as day **{}**.'.format(last_day))
                     found = True
                     break
 
