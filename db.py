@@ -32,3 +32,4 @@ class DB:
 
     def delete_single_user_acknowledgment(self, to_user_id: int):
         self.conn.execute('DELETE FROM acknowledgments WHERE to_user_id = ? ORDER BY id DESC LIMIT 1', (to_user_id,))
+        self.conn.commit()
