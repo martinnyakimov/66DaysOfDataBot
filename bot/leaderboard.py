@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-WAITING_TIME = os.getenv('WAITING_TIME')
+WAITING_TIME = int(os.getenv('WAITING_TIME'))
 
 
 class Leaderboard(commands.Cog):
