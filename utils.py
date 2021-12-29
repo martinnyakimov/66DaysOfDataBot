@@ -43,9 +43,9 @@ async def show_embed(ctx, description, title=None, color=Color.blue(), isSuccess
         await ctx.send(embed=embed)
 
 
-async def send_admin_message(bot, message, title, description, color):
+async def send_admin_message(bot, message, title, description, color, ctx=None):
     channel = utils.get(bot.get_all_channels(), name=LOG_CHANNEL)
-    await show_embed(message=message, channel=channel, ctx=None,
+    await show_embed(message=message, channel=channel, ctx=ctx,
                      title=title, description=description, color=color, addAuthor=True)
 
 

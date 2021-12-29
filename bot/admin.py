@@ -1,6 +1,8 @@
 import discord
+from discord import Color
 from discord.ext import commands
 from discord.ext.commands import has_permissions
+import utils
 import db
 
 
@@ -30,6 +32,11 @@ class Admin(commands.Cog):
     async def remove_acknowledgment(self, ctx, user: discord.User):
         self.db.delete_single_user_acknowledgment(user.id)
         await ctx.send('You have removed 1 point.')
+
+    @commands.command(name='report', brief='Sends a message to the admins')
+    async def report(self, ctx, *, message):
+        await ctx.message.delete()
+        await utils.send_admin_message(self.bot, None, 'Report', message, Color.red(), ctx)
 
 
 def setup(bot):
