@@ -21,7 +21,7 @@ class Admin(commands.Cog):
 
     @commands.command(name='msg', hidden=True)
     @has_permissions(administrator=True)
-    async def move_message(self, ctx, channel: discord.TextChannel, *, message):
+    async def send_message(self, ctx, channel: discord.TextChannel, *, message):
         await ctx.message.delete()
         await channel.send(message)
 
