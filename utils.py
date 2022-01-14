@@ -59,7 +59,7 @@ async def antispam_protection(bot, message):
 
 
 def detect_progress_day(content):
-    content = re.findall(r'(?i)\bday\b[\s]+[\d-]+|day[\d-]+', content)
+    content = re.findall(r'(?i)\bday\b[\s]+[\d]+|day[\d]+', content)
 
     if content:
         return int(content[-1].lower().replace('day', '').strip())
