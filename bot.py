@@ -1,8 +1,10 @@
+import os
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+
 import utils
-import os
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')

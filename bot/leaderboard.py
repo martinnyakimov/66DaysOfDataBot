@@ -1,9 +1,11 @@
+import os
+
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+
 import db
 import utils
-from dotenv import load_dotenv
-import os
 
 load_dotenv()
 WAITING_TIME = int(os.getenv('WAITING_TIME'))

@@ -28,7 +28,9 @@ class DB:
         last = self.conn.execute(
             'SELECT timestamp FROM acknowledgments WHERE from_user_id = ? AND to_user_id = ? ORDER BY id DESC LIMIT 1',
             (from_user_id, to_user_id)).fetchone()
-        return last[0] if last is not None else None
+
+        if last is not None:
+            return last[0]
 
     def delete_single_user_acknowledgment(self, to_user_id: int):
         self.conn.execute('DELETE FROM acknowledgments WHERE to_user_id = ? ORDER BY id DESC LIMIT 1', (to_user_id,))

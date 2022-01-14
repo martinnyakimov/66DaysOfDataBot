@@ -2,8 +2,9 @@ import discord
 from discord import Color
 from discord.ext import commands
 from discord.ext.commands import has_permissions
-import utils
+
 import db
+import utils
 
 
 class Admin(commands.Cog):
