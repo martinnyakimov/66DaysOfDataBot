@@ -38,8 +38,8 @@ class Admin(commands.Cog):
 
     @commands.command(name='choose-winners', hidden=True)
     @has_permissions(administrator=True)
-    async def choose_winners(self, ctx, msg_id: int, num_of_winners: int, emoji_name: str):
-        msg = await ctx.fetch_message(msg_id)
+    async def choose_winners(self, ctx, msg_id: int, channel: discord.TextChannel, num_of_winners: int, emoji_name: str):
+        msg = await channel.fetch_message(msg_id)
 
         for reaction in msg.reactions:
             if str(reaction) == emoji_name:
