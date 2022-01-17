@@ -51,8 +51,13 @@ async def send_admin_message(bot, message, title, description, color, ctx=None):
 
 
 async def antispam_protection(bot, message):
-    keywords_detected = len(re.findall(r'(?i)free|discord|nitro|everyone|steam|dls|airdrop', message.content))
-    if keywords_detected >= 3:
+    if message.author.guild_permissions.administrator:
+        return
+
+    keywords_detected = len(set(re.findall(r'(?i)everyone|free\b|discord|dls|discr|nitro|steam|airdrop|gift|month',
+                                           message.content)))
+    url_detected = re.search(r'(https?://[^\s]+)', message.content)
+    if keywords_detected >= 3 and url_detected:
         await message.delete()
         await send_admin_message(bot, message, SCAM_TITLE, '**Message:** ' + message.content, Color.red())
         await message.author.ban(reason=SCAM_TITLE)
