@@ -39,9 +39,9 @@ async def show_embed(ctx, description, title=None, color=Color.blue(), isSuccess
     if addAuthor: embed.set_author(name=author, icon_url=author.avatar_url)
 
     if channel is not None:
-        await channel.send(embed=embed)
+        return await channel.send(embed=embed)
     else:
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
 
 async def send_admin_message(bot, message, title, description, color, ctx=None):
