@@ -10,6 +10,8 @@ load_dotenv()
 LOG_CHANNEL = os.getenv('LOG_CHANNEL')
 SCAM_TITLE = 'Discord Nitro scam detected!'
 PROGRESS_66TH_DAY_DETECTED = '66th day has been detected!'
+SPAM_KEYWORDS_REGEX = r'(?i)everyone|free\b|discord|dls|discr|dis|nitro|steam|airdrop|gift|month|first'
+PROGRESS_DAY_REGEX = r'(?i)\bday\b[\s]+[\d]+|day[\d]+|d[\d]+'
 
 
 def get_timestamp_difference(timestamp):
@@ -54,8 +56,7 @@ async def antispam_protection(bot, message):
     if message.author.guild_permissions.administrator:
         return
 
-    keywords_detected = len(set(re.findall(r'(?i)everyone|free\b|discord|dls|discr|nitro|steam|airdrop|gift|month',
-                                           message.content)))
+    keywords_detected = len(set(re.findall(SPAM_KEYWORDS_REGEX, message.content)))
     url_detected = re.search(r'(https?://[^\s]+)', message.content)
     if keywords_detected >= 3 and url_detected:
         await message.delete()
@@ -64,7 +65,7 @@ async def antispam_protection(bot, message):
 
 
 def detect_progress_day(content):
-    content = re.findall(r'(?i)\bday\b[\s]+[\d]+|day[\d]+', content)
+    content = re.findall(PROGRESS_DAY_REGEX, content)
 
     if content:
         return int(content[-1].lower().replace('day', '').strip())
