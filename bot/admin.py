@@ -16,13 +16,17 @@ class Admin(commands.Cog):
 
     @commands.command(name='move-msg', hidden=True)
     @has_permissions(administrator=True)
-    async def move_message(self, ctx, channel: discord.TextChannel, msg_id: int):
-        msg = await ctx.fetch_message(msg_id)
-        await msg.delete()
+    async def move_message(self, ctx, channel: discord.TextChannel, *, msg_ids: str):
         await ctx.message.delete()
 
-        await channel.send('**A message by <@{}> has been moved from <#{}>:**\n\n{}'
-                           .format(msg.author.id, msg.channel.id, msg.content))
+        content = ''
+        for msg_id in msg_ids.split(' '):
+            msg = await ctx.fetch_message(int(msg_id))
+            await msg.delete()
+            content += '**A message by <@{}> has been moved from <#{}>:**\n\n{}\n\n' \
+                .format(msg.author.id, msg.channel.id, msg.content)
+
+        await channel.send(content)
 
     @commands.command(name='msg', hidden=True)
     @has_permissions(administrator=True)
