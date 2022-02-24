@@ -11,7 +11,7 @@ LOG_CHANNEL = os.getenv('LOG_CHANNEL')
 SCAM_TITLE = 'Discord Nitro scam detected!'
 PROGRESS_66TH_DAY_DETECTED = '66th day has been detected!'
 SPAM_KEYWORDS_REGEX = r'(?i)everyone|free\b|discord|dls|discr|dis|nitro|steam|airdrop|gift|month|first'
-PROGRESS_DAY_REGEX = r'(?i)\bday\b[\s]+[\d]+|day[\d]+|d[\d]+'
+PROGRESS_DAY_REGEX = r'(?i)\bday\b[\s]+[\d]+|day[\d]+|d[\d]+|day-[\d]+|d-[\d]+'
 
 
 def get_timestamp_difference(timestamp):

@@ -32,7 +32,7 @@ class Progress(commands.Cog):
 
         if not found:
             await utils.show_embed(ctx=ctx, isError=True,
-                                   description='The last day has not been found.\n\nPossible reasons:\n**1)** Your last message has been posted more than 14 days ago.\n**2)** You have not included the day in your message *(e.g. Day 25)*.')
+                                   description='The last day has not been found.\n\nPossible reasons:\n**1)** Your last message was posted more than 14 days ago.\n**2)** You have not included the day in your message *(e.g. Day 25)*.')
 
 
 def setup(bot):
