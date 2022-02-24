@@ -18,7 +18,7 @@ The #66DaysOfData is an initiative that has been started to help you develop bet
 | Command/Feature | Description |
 | --- | --- |
 | !move-msg \<#CHANNEL\> \<MESSAGE_ID_1\> [MESSAGE_ID_2] ... [MESSAGE_ID_N] | Moves a message from one channel to a target one |
-| !msg \<#CHANNEL\> | Sends a message in a channel |
+| !msg \<#CHANNEL\> \<MESSAGE\> | Sends a message in a channel |
 | !rm-point \<USER\> | Removes one point from a user |
 | !choose-winners \<MESSAGE_ID\> \<#CHANNEL\> \<NUMBER_OF_WINNERS\> \<:EMOJI:\> | Chooses N random people who have reacted to a message (giveaway) |
 | !poll <"QUESTION"> [OPTION_1] [OPTION_2] ... [OPTION_10] | Creates a poll. The question must be in quotes. If you do not add any options, the poll will be set as Yes/No by default. |
