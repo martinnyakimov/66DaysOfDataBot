@@ -26,7 +26,7 @@ class Admin(commands.Cog):
             content += '**A message by <@{}> has been moved from <#{}>:**\n\n{}\n\n' \
                 .format(msg.author.id, msg.channel.id, msg.content)
 
-        await channel.send(content)
+        await channel.send(content.replace('@everyone', 'everyone').replace('@here', 'here'))
 
     @commands.command(name='msg', hidden=True)
     @has_permissions(administrator=True)
