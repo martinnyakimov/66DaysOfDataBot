@@ -1,5 +1,3 @@
-import random
-
 import discord
 from discord import Color
 from discord.ext import commands
@@ -42,15 +40,13 @@ class Admin(commands.Cog):
 
     @commands.command(name='choose-winners', hidden=True)
     @has_permissions(administrator=True)
-    async def choose_winners(self, ctx, msg_id: int, channel: discord.TextChannel, num_of_winners: int,
-                             emoji_name: str):
-        msg = await channel.fetch_message(msg_id)
+    async def choose_winners(self, ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji_name: str):
+        await utils.get_reaction_users(ctx, msg_id, channel, members_count, emoji_name, 'Winners')
 
-        for reaction in msg.reactions:
-            if str(reaction) == emoji_name:
-                user_list = [user async for user in reaction.users()]
-                winners = random.sample(user_list, num_of_winners)
-                await ctx.send('**Winners**\n' + '\n'.join(user.mention for user in winners))
+    @commands.command(name='reaction-users', hidden=True)
+    @has_permissions(administrator=True)
+    async def get_reaction_users(self, ctx, msg_id: int, channel: discord.TextChannel, emoji_name: str):
+        await utils.get_reaction_users(ctx, msg_id, channel, 0, emoji_name, 'Reactions')
 
     @commands.command(name='poll', hidden=True)
     @has_permissions(administrator=True)

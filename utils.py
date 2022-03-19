@@ -1,7 +1,9 @@
 import os
+import random
 import re
 from datetime import datetime, timedelta
 
+import discord
 from dateutil import parser
 from discord import Embed, Color, utils
 from dotenv import load_dotenv
@@ -75,3 +77,17 @@ def detect_progress_day(content):
 async def detect_66th_day(bot, message):
     if detect_progress_day(message.content) == 66:
         await send_admin_message(bot, message, PROGRESS_66TH_DAY_DETECTED, message.jump_url, Color.green())
+
+
+async def get_reaction_users(ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji_name: str,
+                             title: str):
+    msg = await channel.fetch_message(msg_id)
+
+    user_list = []
+    for reaction in msg.reactions:
+        if str(reaction) == emoji_name:
+            user_list = [user async for user in reaction.users()]
+            user_list.reverse()
+            if members_count != 0: user_list = random.sample(user_list, members_count)
+
+    await ctx.send(f'**{title}**\n' + '\n'.join(user.mention for user in user_list))
