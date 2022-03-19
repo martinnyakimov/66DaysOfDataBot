@@ -67,6 +67,12 @@ class Admin(commands.Cog):
         for reaction in reactions[:len(options)]:
             await react_message.add_reaction(reaction)
 
+    @commands.command(name='purge', hidden=True)
+    @commands.has_permissions(administrator=True)
+    async def purge(self, ctx, limit: int):
+        await ctx.channel.purge(limit=limit)
+        await ctx.message.delete()
+
     @commands.command(name='report', brief='Sends a message to the admins')
     async def report(self, ctx, *, message: str):
         await ctx.message.delete()
