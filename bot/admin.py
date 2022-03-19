@@ -70,8 +70,8 @@ class Admin(commands.Cog):
     @commands.command(name='purge', hidden=True)
     @commands.has_permissions(administrator=True)
     async def purge(self, ctx, limit: int):
-        await ctx.channel.purge(limit=limit)
         await ctx.message.delete()
+        await ctx.channel.purge(limit=limit)
 
     @commands.command(name='report', brief='Sends a message to the admins')
     async def report(self, ctx, *, message: str):
