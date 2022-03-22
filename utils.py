@@ -72,7 +72,7 @@ def detect_progress_day(content):
     content = re.findall(PROGRESS_DAY_REGEX, content)
 
     if content:
-        return re.findall('\d+', content[-1])
+        return re.findall('\d+', content[-1])[0]
 
 
 async def detect_66th_day(bot, message):
