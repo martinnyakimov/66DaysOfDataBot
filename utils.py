@@ -14,6 +14,7 @@ SCAM_TITLE = 'Discord Nitro scam detected!'
 PROGRESS_66TH_DAY_DETECTED = '66th day has been detected!'
 SPAM_KEYWORDS_REGEX = r'(?i)everyone|free\b|discord|dls|discr|dis|nitro|steam|airdrop|gift|month|first'
 PROGRESS_DAY_REGEX = r'(?i)\bday\b[\s]+[\d]+|day[\d]+|d[\d]+|day-[\d]+|d-[\d]+'
+POLL_REACTIONS = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
 
 
 def get_timestamp_difference(timestamp):
@@ -71,7 +72,7 @@ def detect_progress_day(content):
     content = re.findall(PROGRESS_DAY_REGEX, content)
 
     if content:
-        return int(content[-1].lower().replace('day', '').strip())
+        return re.findall('\d+', content[-1])
 
 
 async def detect_66th_day(bot, message):
@@ -79,9 +80,13 @@ async def detect_66th_day(bot, message):
         await send_admin_message(bot, message, PROGRESS_66TH_DAY_DETECTED, message.jump_url, Color.green())
 
 
-async def get_reaction_users(ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji_name: str,
-                             title: str):
+async def get_reaction_users(bot, ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji_name: str,
+                             title: str, mention: str, role: discord.Role = None):
     msg = await channel.fetch_message(msg_id)
+    guild = bot.get_guild(ctx.guild.id)
+
+    if 'POLL_' in emoji_name:
+        emoji_name = POLL_REACTIONS[int(emoji_name.replace('POLL_', '')) - 1]  # Get a poll reaction emoji
 
     user_list = []
     for reaction in msg.reactions:
@@ -90,4 +95,15 @@ async def get_reaction_users(ctx, msg_id: int, channel: discord.TextChannel, mem
             user_list.reverse()
             if members_count != 0: user_list = random.sample(user_list, members_count)
 
-    await ctx.send(f'**{title}**\n' + '\n'.join(user.mention for user in user_list))
+    usernames = []
+    for user in user_list:
+        if mention is not None and mention.lower() == 'yes':
+            usernames.append(user.mention)
+        else:
+            usernames.append(str(await bot.fetch_user(user.id)))
+
+        if role is not None:
+            member = await guild.fetch_member(user.id)
+            await member.add_roles(role)
+
+    await ctx.send(f'**{title}**\n' + '\n'.join(usernames))

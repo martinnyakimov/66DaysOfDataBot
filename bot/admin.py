@@ -40,13 +40,16 @@ class Admin(commands.Cog):
 
     @commands.command(name='choose-winners', hidden=True)
     @has_permissions(administrator=True)
-    async def choose_winners(self, ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji_name: str):
-        await utils.get_reaction_users(ctx, msg_id, channel, members_count, emoji_name, 'Winners')
+    async def choose_winners(self, ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji_name: str,
+                             mention: str = None, role: discord.Role = None):
+        await utils.get_reaction_users(self.bot, ctx, msg_id, channel, members_count, emoji_name, 'Winners', mention,
+                                       role)
 
     @commands.command(name='reaction-users', hidden=True)
     @has_permissions(administrator=True)
-    async def get_reaction_users(self, ctx, msg_id: int, channel: discord.TextChannel, emoji_name: str):
-        await utils.get_reaction_users(ctx, msg_id, channel, 0, emoji_name, 'Reactions')
+    async def get_reaction_users(self, ctx, msg_id: int, channel: discord.TextChannel, emoji_name: str,
+                                 mention: str = None, role: discord.Role = None):
+        await utils.get_reaction_users(self.bot, ctx, msg_id, channel, 0, emoji_name, 'Reactions', mention, role)
 
     @commands.command(name='poll', hidden=True)
     @has_permissions(administrator=True)
@@ -57,7 +60,7 @@ class Admin(commands.Cog):
             options = ['Yes', 'No']
             reactions = ['✅', '❌']
         else:
-            reactions = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
+            reactions = utils.POLL_REACTIONS
 
         description = '**{}**\n'.format(question)
         for idx, option in enumerate(options):
