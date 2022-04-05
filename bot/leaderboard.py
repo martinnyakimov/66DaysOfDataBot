@@ -1,6 +1,6 @@
 import os
 
-import discord
+from discord import slash_command
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -16,7 +16,7 @@ class Leaderboard(commands.Cog):
         self.bot = bot
         self.db = db.DB()
 
-    @commands.command(name='leaderboard', brief='Shows the ranking of the users with points')
+    @slash_command(name='leaderboard', description='Shows the ranking of the users with points')
     async def list_acknowledgments(self, ctx):
         users = self.db.list_acknowledgments()
         leaderboard_txt = ''
@@ -30,8 +30,8 @@ class Leaderboard(commands.Cog):
 
         await utils.show_embed(ctx=ctx, title='🏆 Leaderboard', description=leaderboard_txt)
 
-    @commands.command(name='thanks', brief='Adds one point to a user')
-    async def add_acknowledgment(self, ctx, user: discord.User):
+    @slash_command(name='thanks', description='Adds one point to a user')
+    async def add_acknowledgment(self, ctx, user: utils.OPTION_USER):
         if ctx.author.id == user.id:
             await utils.show_embed(ctx=ctx, description='You can use this command for yourself.', isError=True)
             return

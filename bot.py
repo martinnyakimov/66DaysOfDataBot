@@ -1,15 +1,13 @@
 import os
 
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv
 
 import utils
 
 load_dotenv()
-TOKEN = os.getenv('TOKEN')
 activity = discord.Activity(type=discord.ActivityType.watching, name='Ken Jee')
-bot = commands.Bot(command_prefix='!', activity=activity)
+bot = discord.Bot(intents=discord.Intents.all(), activity=activity, debug_guilds=[os.getenv('DISCORD_SERVER_ID')])
 
 
 @bot.event
@@ -26,11 +24,9 @@ async def on_message(message):
     if message.channel.name == 'progress':
         await utils.detect_66th_day(bot, message)
 
-    await bot.process_commands(message)
-
 
 bot.load_extension('bot.admin')
 bot.load_extension('bot.leaderboard')
 bot.load_extension('bot.progress')
 
-bot.run(TOKEN)
+bot.run(os.getenv('TOKEN'))

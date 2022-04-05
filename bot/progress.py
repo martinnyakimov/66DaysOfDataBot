@@ -1,4 +1,4 @@
-import discord
+from discord import slash_command
 from discord.ext import commands
 
 import utils
@@ -8,8 +8,8 @@ class Progress(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='last-day', brief='Checks the last day of your last message (14-day archive)')
-    async def last_day(self, ctx, user: discord.User = None):
+    @slash_command(name='last-day', description='Checks the last day of your last message (14-day archive)')
+    async def last_day(self, ctx, user: utils.OPTION_USER = None):
         if ctx.channel.name != 'progress':
             await utils.show_embed(ctx=ctx, description='You can use this command only in #progress.', isError=True)
             return
@@ -26,7 +26,7 @@ class Progress(commands.Cog):
             if msg.author.id == author_id:
                 last_day = utils.detect_progress_day(msg.content)
                 if last_day:
-                    await ctx.send('The last message is marked as day **{}**.'.format(last_day))
+                    await ctx.respond('The last message is marked as day **{}**.'.format(last_day))
                     found = True
                     break
 
