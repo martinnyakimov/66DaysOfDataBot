@@ -28,7 +28,7 @@ async def send_disappearing_response(ctx, message, delete_after=1):
 
 
 async def show_embed(ctx, description, title=None, color=Color.blue(), isSuccessful=False, isError=False,
-                     message=None, channel=None, addAuthor=False):
+                     message=None, channel=None, addAuthor=False, loadingText=False):
     if isSuccessful:
         title = 'Success!'
         color = Color.green()
@@ -45,8 +45,11 @@ async def show_embed(ctx, description, title=None, color=Color.blue(), isSuccess
     if channel is not None:
         return await channel.send(embed=embed)
 
-    await send_disappearing_response(ctx, 'Loading...', 0.5)
-    return await ctx.channel.send(embed=embed)
+    if loadingText:
+        await send_disappearing_response(ctx, 'Loading...', 0.5)
+        return await ctx.channel.send(embed=embed)
+
+    return await ctx.respond(embed=embed)
 
 
 async def send_message_to_admins(bot, message, title, description, color, ctx=None):

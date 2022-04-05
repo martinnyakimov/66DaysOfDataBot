@@ -72,7 +72,7 @@ class Admin(commands.Cog):
         for idx, option in enumerate(options):
             description += '\n {} {}'.format(reactions[idx], option)
 
-        react_message = await utils.show_embed(ctx, title='📊 Poll', description=''.join(description))
+        react_message = await utils.show_embed(ctx, title='📊 Poll', description=''.join(description), loadingText=True)
         for reaction in reactions[:len(options)]:
             await react_message.add_reaction(reaction)
 
