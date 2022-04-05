@@ -30,7 +30,7 @@ class Leaderboard(commands.Cog):
 
         await utils.show_embed(ctx=ctx, title='🏆 Leaderboard', description=leaderboard_txt)
 
-    @slash_command(name='thanks', description='Adds one point to a user')
+    @slash_command(name='thanks', description='Adds one point to a user in the leaderboard')
     async def add_acknowledgment(self, ctx, user: utils.OPTION_USER):
         if ctx.author.id == user.id:
             await utils.show_embed(ctx=ctx, description='You can use this command for yourself.', isError=True)

@@ -59,7 +59,7 @@ class Admin(commands.Cog):
     @slash_command(name='x-poll', description='[ADMIN] Creates a poll')
     @commands.has_permissions(administrator=True)
     async def create_poll(self, ctx, question: Option(str, 'Poll question'),
-                          options: Option(str, 'Comma-separated poll options. '
+                          options: Option(str, 'Comma-separated poll options - up to 10. '
                                                'Type "None" and they will be Yes/No.')):
         if options == 'None':
             options = ['Yes', 'No']
