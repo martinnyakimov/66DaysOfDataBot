@@ -44,7 +44,7 @@ class Admin(commands.Cog):
     async def choose_winners(self, ctx, msg_id: utils.OPTION_MSG_ID, channel: utils.OPTION_CHANNEL,
                              members_count: Option(int, 'Member count'), emoji: Option(str, 'Emoji'),
                              mention: Option(str, 'Do you want to mention the users?', choices=['Yes', 'No']) = None,
-                             role: discord.Role = None):
+                             role: Option(discord.Role, 'Set a role') = None):
         await utils.get_reaction_users(self.bot, ctx, msg_id, channel, members_count, emoji, 'Winners', mention,
                                        role)
 
@@ -53,7 +53,7 @@ class Admin(commands.Cog):
     async def reaction_users(self, ctx, msg_id: utils.OPTION_MSG_ID, channel: utils.OPTION_CHANNEL,
                              emoji: Option(str, 'Emoji'),
                              mention: Option(str, 'Do you want to mention the users?', choices=['Yes', 'No']) = None,
-                             role: discord.Role = None):
+                             role: Option(discord.Role, 'Set a role') = None):
         await utils.get_reaction_users(self.bot, ctx, msg_id, channel, 0, emoji, 'Reactions', mention, role)
 
     @slash_command(name='x-poll', description='[ADMIN] Creates a poll')
