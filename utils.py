@@ -84,6 +84,7 @@ async def detect_66th_day(bot, message):
 
 async def get_reaction_users(bot, ctx, msg_id: int, channel: discord.TextChannel, members_count: int, emoji: str,
                              title: str, mention: str, role: discord.Role = None):
+    await send_disappearing_response(ctx, 'Loading...')
     msg = await channel.fetch_message(msg_id)
     guild = bot.get_guild(ctx.guild.id)
 
@@ -108,7 +109,6 @@ async def get_reaction_users(bot, ctx, msg_id: int, channel: discord.TextChannel
             member = await guild.fetch_member(user.id)
             await member.add_roles(role)
 
-    await send_disappearing_response(ctx, 'Loading...')
     await ctx.respond(f'**{title}: {len(usernames)}**\n' + '\n'.join(usernames))
 
 
