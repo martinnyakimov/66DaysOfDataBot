@@ -109,7 +109,7 @@ async def get_reaction_users(bot, ctx, msg_id: int, channel: discord.TextChannel
             member = await guild.fetch_member(user.id)
             await member.add_roles(role)
 
-    await ctx.send(f'**{title}: {len(usernames)}**\n' + '\n'.join(usernames))
+    await ctx.respond(f'**{title}: {len(usernames)}**\n' + '\n'.join(usernames))
 
 
 def str_to_list(string: str):
