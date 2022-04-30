@@ -1,1 +1,1 @@
-*.example linguist-detectable=false
+.env.example linguist-detectable=false
