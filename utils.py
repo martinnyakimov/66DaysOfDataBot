@@ -18,7 +18,7 @@ OPTION_MSG_ID = Option(str, 'Message ID')
 SCAM_TITLE = 'Discord Nitro scam detected!'
 PROGRESS_66TH_DAY_DETECTED = '66th day has been detected!'
 
-SPAM_KEYWORDS_REGEX = r'(?i)everyone|free\b|discord|dls|discr|dis|nitro|steam|airdrop|gift|month|first'
+SPAM_KEYWORDS_REGEX = r'(?i)everyone|free\b|discord|dls|discr|nitro|steam|airdrop|gift|month|first'
 PROGRESS_DAY_REGEX = r'(?i)\bday\b[\s]+[\d]+|day[\d]+|d[\d]+|day-[\d]+|d-[\d]+'
 POLL_REACTIONS = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
 
