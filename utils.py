@@ -15,10 +15,11 @@ OPTION_CHANNEL = Option(discord.TextChannel, 'Choose a channel')
 OPTION_USER = Option(discord.User, 'Choose a user')
 OPTION_MSG_ID = Option(str, 'Message ID')
 
-SCAM_TITLE = 'Discord Nitro scam detected!'
+SCAM_TITLE = 'Discord Nitro scam or invite detected!'
 PROGRESS_66TH_DAY_DETECTED = '66th day has been detected!'
 
 SPAM_KEYWORDS_REGEX = r'(?i)everyone|free\b|discord|dls|discr|nitro|steam|airdrop|gift|month|first'
+DISCORD_INVITE_REGEX = r'(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]'
 PROGRESS_DAY_REGEX = r'(?i)\bday\b[\s]+[\d]+|day[\d]+|d[\d]+|day-[\d]+|d-[\d]+'
 POLL_REACTIONS = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
 
@@ -64,7 +65,9 @@ async def antispam_protection(bot, message):
 
     keywords_detected = len(set(re.findall(SPAM_KEYWORDS_REGEX, message.content)))
     url_detected = re.search(r'(https?://[^\s]+)', message.content)
-    if keywords_detected >= 3 and url_detected:
+    discord_invite_detected = re.search(DISCORD_INVITE_REGEX, message.content)
+
+    if (keywords_detected >= 3 and url_detected) or discord_invite_detected:
         await message.delete()
         await send_message_to_admins(bot, message, SCAM_TITLE, '**Message:** ' + message.content, Color.red())
         await message.author.ban(reason=SCAM_TITLE)
