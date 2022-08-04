@@ -24,5 +24,5 @@ The #66DaysOfData is an initiative that has been started to help you develop bet
 | /x-choose-winners \<message_id\> \<#channel\> \<number_of_winners\> \<:emoji:\> [mention] [assign_role] | Chooses N random people who have reacted to a message (giveaway). You can also assign a role to these users. |
 | /x-reaction-users \<message_id\> \<#channel\> \<:emoji:\> [mention] [assign_role] | Shows all the members who have reacted to a message |
 | /x-poll \<question\> [option_1], [option_2], ... [option_10] | Creates a poll |
-| Discord Nitro scam protection | Bans a user if the scam is detected |
+| Discord Nitro scam and invite spam protection | Bans a user if the scam is detected |
 | Detecting the 66th day | Sends a message to the admins |
