@@ -24,6 +24,10 @@ async def on_message(message):
     if message.channel.name == 'progress':
         await utils.detect_66th_day(bot, message)
 
+@bot.event
+async def on_message_edit(before, after):
+    await utils.antispam_protection(bot, after)
+
 
 bot.load_extension('bot.admin')
 bot.load_extension('bot.leaderboard')
